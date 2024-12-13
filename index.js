@@ -19,8 +19,19 @@ mongoose.connect(MONGO_URI, {
     });
 
 // Middleware
+const allowedOrigins = [
+    'http://localhost:5173', // Local
+    'https://projet-ecf-marvin.vercel.app/' // Vercel
+];
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Non autorisé par CORS'));
+        }
+    }
 }));
 
 app.use(express.json());
