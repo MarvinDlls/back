@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const recipeRoute = require('./routes/recipe');
 const infoRoutes = require('./routes/api');
 
-// Configuration de la connexion MongoDB
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/recipe";
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -18,7 +17,6 @@ mongoose.connect(MONGO_URI, {
         console.error("Erreur de connexion à MongoDB :", error);
     });
 
-// Middleware
 const allowedOrigins = [
     'http://localhost:5173', // Local
     'https://projet-ecf-marvin.vercel.app/' // Vercel
@@ -37,11 +35,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
 app.use("/recipe", recipeRoute);
 app.use("/api", infoRoutes);
 
-// Configuration du port
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`L'API est lancée sur l'url http://localhost:${PORT}`);
