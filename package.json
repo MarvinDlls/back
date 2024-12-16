@@ -6,7 +6,7 @@
 	},
 
 	"engines": {
-		"node": "14.X"
+		"node": "22.X"
 	},
 
 	"scripts": {
